@@ -94,3 +94,15 @@ export default function CartPage() {
     </div>
   );
 }
+
+
+
+// Ensure you have a type defined for the Context
+interface CartContextType {
+  items: CartItem[];
+  cartTotal: number;
+  dispatch: React.Dispatch<CartAction>;
+}
+
+// Ensure the context is created with the type or null
+export const CartContext = createContext<CartContextType | null>(null);
