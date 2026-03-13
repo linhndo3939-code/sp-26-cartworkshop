@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../api/products";
 import FilterSidebar from "../components/FilterSidebar";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCard/ProductCard";
 import type { ProductFilters, ProductResponse } from "../types/product";
 import styles from "./ProductListPage.module.css";
 

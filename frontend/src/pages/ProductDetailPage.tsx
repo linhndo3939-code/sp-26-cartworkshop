@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchProduct, NotFoundError } from "../api/products";
+import { fetchProduct, NotFoundError } from "../api/product";
 import type { ProductResponse } from "../types/product";
 import styles from "./ProductDetailPage.module.css";
+import { AddToCartButton } from "../../components/AddToCartButton/AddToCartButton";
 
 type FetchState =
   | { status: "loading" }
@@ -86,6 +87,20 @@ export default function ProductDetailPage() {
           <span className={styles.category}>{product.categoryName}</span>
           <h1 className={styles.name}>{product.name}</h1>
           <p className={styles.price}>${product.price.toFixed(2)}</p>
+          {product.description && (
+            <p className={styles.description}>{product.description}</p>
+          )}
+          <div className={styles.actions}>
+            <AddToCartButton 
+              product={{
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                imageUrl: product.imageUrl 
+              }} 
+            />
+          </div>
+
           {product.description && (
             <p className={styles.description}>{product.description}</p>
           )}

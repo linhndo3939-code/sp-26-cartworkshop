@@ -1,0 +1,32 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  /* Removed overflow: hidden so the button doesn't get cut off */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+  height: 100%;
+  position: relative;
+}
+
+.cardContainer:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* This pushes the buttonWrapper to the very bottom */
+}
+
+.buttonWrapper {
+  padding: 0 1rem 1rem 1rem;
+  margin-top: auto; /* Pushes button to bottom */
+  position: relative; 
+  z-index: 5; /* Keeps button clickable above the Link */
+  text-align: center;
+}
