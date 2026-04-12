@@ -1,32 +1,32 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductListPage from "./pages/ProductListPage";
-import CartPage from "./pages/CartPage/CartPage"; // Add the extra /CartPage
+import CartPage from "./pages/CartPage/CartPage";
 import { CartProvider } from "./contexts/CartContext";
-import styles from "./Layout.module.css";
+import { CartBadge } from "./components/CartBadge/CartBadge";
 
 export default function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<ProductListPage />} />
-            <Route path="products/:id" element={<ProductDetailPage />} />
-            <Route path="cart" element={<CartPage />} />
-          </Route>
-        </Routes>
+        <div style={{ padding: '20px' }}>
+          <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h1>Buckeye Marketplace</h1>
+            </Link>
+            <CartBadge />
+          </header>
+
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<ProductListPage />} />
+              <Route path="products/:id" element={<ProductDetailPage />} />
+              <Route path="cart" element={<CartPage />} />
+            </Route>
+          </Routes>
+        </div>
       </BrowserRouter>
     </CartProvider>
   );
 }
-
-
-import { CartBadge } from "./components/CartBadge/CartBadge";
-
-// Inside your return JSX, make sure the component is actually called:
-<header className={styles.header}>
-  <h1>Buckeye Marketplace</h1>
-  <CartBadge />  {/* <--- Is this line missing? */}
-</header>

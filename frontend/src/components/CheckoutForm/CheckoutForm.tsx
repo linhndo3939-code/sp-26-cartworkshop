@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useCartContext } from "../../hooks/useCartContext";
+import { useCartContext } from "../hooks/UseCartContext";
 import styles from "./CheckoutForm.module.css";
 
 interface FormData {
@@ -58,14 +58,10 @@ export function CheckoutForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     setTouched(new Set(Object.keys(formData) as Array<keyof FormData>));
-
     if (!isFormValid) return;
 
     setIsSubmitting(true);
-
-    // Simulate API Call
     setTimeout(() => {
       dispatch({ type: "CLEAR_CART" });
       setIsSuccess(true);
@@ -85,69 +81,22 @@ export function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h2 className={styles.heading}>Shipping Information</h2>
-      
       <div className={styles.field}>
         <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          aria-invalid={touched.has("name") && Boolean(errors.name)}
-          aria-describedby="name-error"
-        />
-        {touched.has("name") && errors.name ? (
-          <div id="name-error" className={styles.error} role="alert">
-            {errors.name}
-          </div>
-        ) : null}
+        <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} onBlur={handleBlur} />
+        {touched.has("name") && errors.name && <div className={styles.error}>{errors.name}</div>}
       </div>
-
       <div className={styles.field}>
         <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          aria-invalid={touched.has("email") && Boolean(errors.email)}
-          aria-describedby="email-error"
-        />
-        {touched.has("email") && errors.email ? (
-          <div id="email-error" className={styles.error} role="alert">
-            {errors.email}
-          </div>
-        ) : null}
+        <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} onBlur={handleBlur} />
+        {touched.has("email") && errors.email && <div className={styles.error}>{errors.email}</div>}
       </div>
-
       <div className={styles.field}>
         <label htmlFor="zip">Zip Code</label>
-        <input
-          id="zip"
-          name="zip"
-          type="text"
-          value={formData.zip}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          aria-invalid={touched.has("zip") && Boolean(errors.zip)}
-          aria-describedby="zip-error"
-        />
-        {touched.has("zip") && errors.zip ? (
-          <div id="zip-error" className={styles.error} role="alert">
-            {errors.zip}
-          </div>
-        ) : null}
+        <input id="zip" name="zip" type="text" value={formData.zip} onChange={handleChange} onBlur={handleBlur} />
+        {touched.has("zip") && errors.zip && <div className={styles.error}>{errors.zip}</div>}
       </div>
-
-      <button 
-        type="submit" 
-        className={styles.submitBtn}
-        disabled={isSubmitting}
-      >
+      <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
         {isSubmitting ? "Processing..." : `Pay $${cartTotal.toFixed(2)}`}
       </button>
     </form>

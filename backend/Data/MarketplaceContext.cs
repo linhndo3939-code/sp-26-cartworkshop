@@ -1,5 +1,6 @@
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend.Data;
 
@@ -15,6 +16,7 @@ public class MarketplaceContext : DbContext
     // NEW Cart Sets from the Lab
     public DbSet<Cart> Carts { get; set; }       
     public DbSet<CartItem> CartItems { get; set; } 
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,6 +35,18 @@ public class MarketplaceContext : DbContext
             new Product { Id = 3, Name = "Clean Code", Description = "A handbook of agile software craftsmanship by Robert C. Martin.", Price = 34.99m, CategoryId = 2, ImageUrl = "https://placehold.co/400x300?text=Clean+Code", CreatedAt = new DateTime(2026, 1, 3, 0, 0, 0, DateTimeKind.Utc) },
             new Product { Id = 4, Name = "The Pragmatic Programmer", Description = "Your journey to mastery, 20th anniversary edition.", Price = 39.99m, CategoryId = 2, ImageUrl = "https://placehold.co/400x300?text=Pragmatic+Programmer", CreatedAt = new DateTime(2026, 1, 4, 0, 0, 0, DateTimeKind.Utc) },
             new Product { Id = 5, Name = "Classic Hoodie", Description = "Comfortable cotton-blend pullover hoodie in multiple colors.", Price = 49.99m, CategoryId = 3, ImageUrl = "https://placehold.co/400x300?text=Hoodie", CreatedAt = new DateTime(2026, 1, 5, 0, 0, 0, DateTimeKind.Utc) }
+        );
+
+        // --- 2. AUTH SEED DATA (Crucial for Checkpoint 3) ---
+        var hasher = new PasswordHasher<User>();
+        modelBuilder.Entity<User>().HasData(
+            new User 
+            { 
+                Id = 1, 
+                Username = "testuser", 
+                PasswordHash = hasher.HashPassword(null!, "password"),
+                Role = "Customer"
+            }
         );
 
         // --- 2. SHOPPING CART LOGIC (New) ---
